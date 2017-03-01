@@ -1,0 +1,43 @@
+[{
+	"_id": {
+		"$oid": "58911e73e85c87273484cfc6"
+	},
+	"name": "beef",
+	"price": 3.99
+},
+{
+	"_id": {
+		"$oid": "5891301b305ff40d88b84771"
+	},
+	"name": "pork",
+	"price": 1.99
+},
+{
+	"_id": {
+		"$oid": "58b5ebd390149fe4da2a0258"
+	},
+	"name": "milk",
+	"price": 2.49
+},
+{
+	"_id": {
+		"$oid": "58b5ebe590149fe4da2a0259"
+	},
+	"name": "water",
+	"price": 1.09
+},
+{
+	"_id": {
+		"$oid": "58b5ebf390149fe4da2a025a"
+	},
+	"name": "tissue",
+	"price": 1.49
+},
+{
+	"_id": {
+		"$oid": "58b5ec1490149fe4da2a025b"
+	},
+	"name": "veal",
+	"price": 5.49
+}]
+
