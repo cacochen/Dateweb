@@ -1,4 +1,3 @@
-//var hotelData = require('../data/hotel-data.json');
 var dbconn = require('../data/dbconnection.js');
 
 module.exports.productsGetAll = function(req, res) {
