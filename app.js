@@ -1,7 +1,7 @@
 /**
  * Created by Domain on 2/24/2017.
  */
-require('./api/data/dbconnection.js').open();
+require('./api/data/db.js');
 
 var express = require('express');
 var app = express();
