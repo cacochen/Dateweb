@@ -1,9 +1,12 @@
 # Date Web
-This is a Dating website project in MEAN stack.
-Every user can make own profile and search others by location, hobbies
-thump up means I think it's a good person but he/she is not right for you.
-5 thump ups can make u become a good guy/gal. 10 for great.
+This is a Movie review website project in MEAN stack.
 
-Tips:
-every time of login, website will recommend three candidates.
+user can modify movies' partial attribute and add review and rating them in three options :
+1. I would like to watch it again
+2. One time watching is enough for me
+3. Regret watching it
+
+Mongoose build CRUD operations in RESTful API
+Total of rating states is less than 60, the movie will get a rotten movie mark.
+
 
