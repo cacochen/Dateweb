@@ -1,14 +1,18 @@
-var dbconn = require('../data/dbconnection.js');
+/**
+ * Created by Domain on 3/12/2017.
+ */
+var mongoose = require('mongoose');
+var Product = mongoose.model('Product');
+
 
 module.exports.productsGetAll = function(req, res) {
-    console.log('GET the market data');
-  //  console.log(req.query);
 
-    var db = dbconn.get();
-    var collection = db.collection('market');
+    console.log('GET the market data');
+    console.log(req.query);
 
     var offset = 0;
-    var count = 10;
+    var count = 5;
+    var maxCount = 10;
 
     if(req.query && req.query.offset) {
         offset = parseInt(req.query.offset, 10);
@@ -17,65 +21,168 @@ module.exports.productsGetAll = function(req, res) {
         count = parseInt(req.query.count, 10);
     }
 
-    collection
+    // check url validity
+    if(isNaN(offset) || isNaN(count)) {
+        res
+            .status(400)
+            .json({
+                'message' : 'offset and count should be numbers'
+            });
+        return;
+    }
+
+    if (count > maxCount) {
+        res
+            .status(400)
+            .json({
+                'message' : 'Count limit is' + maxCount +'exceeded'
+            });
+        return;
+    }
+
+    Product
         .find()
         .skip(offset)
         .limit(count)
-        .toArray(function(err, docs) {
-            console.log('data found',docs);
+        .exec(function(err, docs){
+            console.log("Found products", docs.length);
             res
-                .status(200)
                 .json(docs);
-         });
-    // console.log('db',db);
-
-
-    //
-    // var returnData = hotelData.slice(offset, offset+count);
-    // res
-    //     .status(200)
-    //     .json( returnData );
+        });
 };
 
 module.exports.productsGetOne = function(req, res) {
-    var db = dbconn.get();
-    var collection = db.collection('market');
 
     var _productId = req.params.productId;
     console.log('GET the product ID: ' + _productId);
 
-    collection
-        .findOne({productId:_productId}, function(err, doc) {
+    Product
+        .findById(_productId)
+        .exec(function(err, doc) {
+            var response = {
+                status:200,
+                message:doc
+            }
+            if(err) {
+                console.log('Error on finding object');
+                response.status = 500;
+                response.message = err;
+            } else if (!doc) {
+                response.status = 404;
+                response.message = {
+                    'message' : 'Object ID was not found'
+                };
+            }
             res
-                .status(200)
-                .json( doc );
-        });
+                .status(response.status)
+                .json(response.message)
 
+        });
+};
+
+var _splitArray = function(input) {
+    var output;
+    if (input&&input.length > 0) {
+        output = input.split(';');
+    } else {
+        output = [];
+    }
+    return output;
+};
+
+
+module.exports.productsAddOne = function(req, res) {
+
+    Product
+        .create({
+            name : req.body.name,
+            director : req.body.director,
+            language : _splitArray(req.body.language),
+            cast : _splitArray(req.body.cast),
+            runtime : parseInt(req.body.runtime, 10),
+            boxOffice : parseInt(req.body.boxOffice, 10)
+        }, function(err, product) {
+          if(err) {
+              console.log('Error on creating object');
+              res
+                  .status(400)
+                  .json(err)
+          } else {
+              console.log('Object created', product);
+              res
+                  .status(201)
+                  .json(product)
+          }
+        });
 
 };
 
-module.exports.productsAddOne = function(req, res) {
-    var db = dbconn.get();
-    var collection = db.collection('market');
-    var newProduct;
 
-    console.log('POST a new product:');
+module.exports.productsUpdateOne = function(req, res) {
+    var _productId = req.params.productId;
+    console.log('GET the product ID: ' + _productId);
 
-    if (req.body && req.body.name && req.body.price) {
-        newProduct = req.body;
-        newProduct.name = req.body.name;
-        newProduct.price = eval(req.body.price);
-      //  newProduct.price = parseInt(req.body.price, 10);
-        collection.insertOne(newProduct, function(err, response) {
-        console.log(response.ops);
-        res
-            .status(201)
-            .json(response.ops);
+    Product
+        .findById(_productId)
+        .select('-reviews')
+        .exec(function(err, doc) {
+            var response = {
+                status:200,
+                message:doc
+            }
+            if(err) {
+                console.log('Error on finding object');
+                response.status = 500;
+                response.message = err;
+            } else if (!doc) {
+                response.status = 404;
+                response.message = {
+                    'message' : 'Object ID was not found'
+                };
+            }
+            if (response.status !== 200) {
+                res
+                    .status(response.status)
+                    .json(response.message)
+            } else {
+                doc.name = req.body.name;
+                doc.director = req.body.director;
+                doc.language = _splitArray(req.body.language);
+                doc.cast = _splitArray(req.body.cast);
+                doc.runtime = parseInt(req.body.runtime, 10);
+                doc.boxOffice = parseInt(req.body.boxOffice, 10);
+
+                doc.save(function(err) {
+                    if(err) {
+                        res
+                            .status(500)
+                            .json(err)
+                    } else {
+                        res
+                            .status(204)
+                            .json({'Message' : 'Successfully Updated'})
+                    }
+                });
+            }
         });
-    } else {
-      console.log('Data is missing.');
-        res
-            .status(400)
-            .json( {message : 'some Require data is missing. Submit again.'} );
-    }
+};
+
+module.exports.productsDeleteOne = function(req, res) {
+    var _productId = req.params.productId;
+    console.log('GET the product ID: ' + _productId);
+
+    Product
+        .findByIdAndRemove(_productId)
+        .exec(function(err, doc) {
+            if(err) {
+                res
+                    .status(404)
+                    .json(err)
+            } else {
+                console.log('Deleting object: ' + _productId);
+                res
+                    .status(204)
+                    .json()
+            }
+        });
 };
