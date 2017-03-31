@@ -17,6 +17,7 @@ module.exports.reviewsGetAll = function(req, res) {
                 .status(200)
                 .json(doc.reviews);
         });
+
 };
 
 module.exports.reviewsGetOne = function(req, res) {
@@ -77,7 +78,7 @@ module.exports.reviewsAddOne = function(req, res) {
                 message:doc
             }
             if(err) {
-                console.log('Error on finding object');
+                console.log('Error on finding object #:' + err);
                 response.status = 500;
                 response.message = err;
             } else if (!doc) {
@@ -97,15 +98,17 @@ module.exports.reviewsAddOne = function(req, res) {
         });
 
     // For counting all dislikes and set the total
-    var dislikes = parseInt(req.body.dislike, 10);
-    Product
-        .findById(_productId)
-        .update({},{$inc : {dislikeTotal : dislikes}},function(err) {
-            if (err) {
-                console.log('failure on set dislikeTotal');
-                return;
-            }
-        });
+    // var dislike = parseInt(req.body.dislike, 10);
+    // Product
+    //     .findById(_productId)
+    //     .update({},{$inc : {dislikeTotal : dislike}},function(err) {
+    //         if (err) {
+    //             console.log('failure on set dislikeTotal');
+    //             return;
+    //         }
+    //     });
+
+
 };
 
 

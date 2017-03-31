@@ -4,6 +4,7 @@
 var mongoose = require('mongoose');
 
 var reviewSchema = new mongoose.Schema({
+
     name : {
         type : String,
         require : true
@@ -25,7 +26,11 @@ var reviewSchema = new mongoose.Schema({
 });
 
 var productSchema = new mongoose.Schema({
-    name : String,
+
+    name : {
+        type : String,
+        required : true
+    },
     director : String,
     language : [String],
     cast : [String],

@@ -1,0 +1,34 @@
+<h1>{{ vm.title }}</h1>
+<ul>
+    <li ng-repeat="product in vm.products"><a ng-href="#/products/{{ product._id }}">{{ product.name }}</a></li>
+</ul>
+
+<h3>Yours are not in the list?</h3>
+<p><i>Please help us</i></p>
+
+<form class="form-group" name="vm.productForm" ng-submit="vm.addProduct()">
+    <div class="form-group">
+    Name : <input type="text" name="name" required ng-linlength="1" ng-model="vm.name">
+    <div ng-show="vm.productForm.name.$dirty && vm.productForm.name.$invalid && vm.isSubmitted">
+        <p>Movie Name should be more than 1 character long</p>
+    </div>
+    </div>
+    <div class="form-group">
+    Director : <input type="text" name="director" required ng-linlength="2" ng-model="vm.director">
+    <div ng-show="vm.productForm.name.$dirty && vm.productForm.name.$invalid && vm.isSubmitted">
+        <p>Director Name should be more than 2 characters long</p>
+    </div>
+    </div>
+    <div class="form-group">
+    Language : <input type="text" name="language" ng-model="vm.language">
+    </div>
+    <div class="form-group">
+    Runtime : <input type="text" name="runtime" min="0" ng-model="vm.runtime">
+    </div>
+    <div class="form-group">
+    Box Office : <input type="text" name="boxOffice"  ng-model="vm.boxOffice">
+    </div>
+
+    <button type="submit"  class="btn btn-success">Add a movie</button>
+</form>
+

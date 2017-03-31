@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="movieRating">
 <head>
     <meta charset="UTF-8">
-    <title>Dating website</title>
+    <title>RottenMovie website"Do not watch"</title>
     <link href = "css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/custom.css">
 </head>
 <body>
-    <h1>Homepage: </h1>
+
+    <div ng-view></div>
+
     <footer class="footer">
         <div class="container">
             <p class="text-muted text-info">
@@ -23,5 +25,12 @@
     </footer>
 
     <script src="jquery/jquery-2.2.3.min.js"></script>
+    <script src="node_modules/angular/angular.js"></script>
+    <script src="node_modules/angular-route/angular-route.js"></script>
+    <script src="angular-app/app.js"></script>
+    <script src="angular-app/product-list/product-list-controller.js"></script>
+    <script src="angular-app/product-display/product-display-controller.js"></script>
+    <script src="angular-app/product-data-factory/product-data-factory.js"></script>
+
 </body>
 </html>

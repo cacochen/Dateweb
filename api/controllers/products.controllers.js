@@ -103,7 +103,7 @@ module.exports.productsAddOne = function(req, res) {
             boxOffice : parseInt(req.body.boxOffice, 10)
         }, function(err, product) {
           if(err) {
-              console.log('Error on creating object');
+              console.log('Error on creating object: ' + err);
               res
                   .status(400)
                   .json(err)
@@ -124,7 +124,7 @@ module.exports.productsUpdateOne = function(req, res) {
 
     Product
         .findById(_productId)
-        .select('-reviews')
+        //.select('-reviews')
         .exec(function(err, doc) {
             var response = {
                 status:200,
