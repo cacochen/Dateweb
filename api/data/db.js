@@ -28,4 +28,4 @@ mongoose.connection.on('error', function(err) {
 
 // declare data model
 require('./products.model.js');
-require('./persons.model.js');
+require('./users.model.js');

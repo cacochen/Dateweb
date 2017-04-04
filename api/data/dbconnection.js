@@ -2,7 +2,7 @@
  * Created by Domain on 2/28/2017.
  */
 var MongoClient = require('mongodb').MongoClient;
-var dburl = 'mongodb://localhost:27017/market';
+var dburl = 'mongodb://localhost:27017/moviemarket';
 
 var _connection = null;
 

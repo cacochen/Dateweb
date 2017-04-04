@@ -5,13 +5,13 @@ var express = require('express');
 var router = express.Router();
 
 var ctrlProducts = require('../controllers/products.controllers.js');
-var ctrlPersons = require('../controllers/persons.controllers.js');
+var ctrlUsers = require('../controllers/users.controllers.js');
 var ctrlReviews = require('../controllers/reviews.controllers.js');
 
 // product routers of market database
 router
     .route('/products')
-    .get(ctrlProducts.productsGetAll)
+    .get(ctrlUsers.authenticate, ctrlProducts.productsGetAll)
     .post(ctrlProducts.productsAddOne);
 
 router
@@ -35,15 +35,15 @@ router
 
 
 
-// person routers of userDB
+// User Authentication
 
 router
-    .route('/persons')
-    .get(ctrlPersons.personsGetAll);
+    .route('/users/register')
+    .post(ctrlUsers.register);
 
 router
-    .route('/persons/:personId')
-    .get(ctrlPersons.personsGetOne);
+    .route('/users/login')
+    .post(ctrlUsers.login);
 
 
 

@@ -6,12 +6,12 @@ var Product = mongoose.model('Product');
 
 
 module.exports.productsGetAll = function(req, res) {
-
-    console.log('GET the market data');
+    console.log('Requested by : ' + req.user);
+    console.log('GET market data');
     console.log(req.query);
 
     var offset = 0;
-    var count = 5;
+    var count = 10;
     var maxCount = 10;
 
     if(req.query && req.query.offset) {
