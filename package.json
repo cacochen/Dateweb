@@ -1,6 +1,6 @@
 {
   "name": "DateWeb",
-  "version": "0.2.1",
+  "version": "0.6.1",
   "description": "Dating website in MEAN stack",
   "main": "app.js",
   "scripts": {
