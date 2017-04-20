@@ -13,6 +13,7 @@ function productDataFactory($http) {
 
 
     function productList() {
+        console.log('I.m here');
         return $http.get('/api/products').then(complete).catch(failed);
     }
 

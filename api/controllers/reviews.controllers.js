@@ -60,9 +60,12 @@ var _addReview = function(req, res, doc){
         } else {
             res
                 .status(201)
-                .json(docUpdated.reviews[docUpdated.reviews.length - 1])
+                .json(docUpdated.reviews[docUpdated.reviews.length - 1]);
         }
+
+
     });
+
 };
 
 module.exports.reviewsAddOne = function(req, res) {
@@ -98,16 +101,15 @@ module.exports.reviewsAddOne = function(req, res) {
         });
 
     // For counting all dislikes and set the total
-    // var dislike = parseInt(req.body.dislike, 10);
-    // Product
-    //     .findById(_productId)
-    //     .update({},{$inc : {dislikeTotal : dislike}},function(err) {
-    //         if (err) {
-    //             console.log('failure on set dislikeTotal');
-    //             return;
-    //         }
-    //     });
-
+    var dislike = parseInt(req.body.dislike, 10);
+    Product
+        .findById(_productId)
+        .update({},{$inc : {dislikeTotal : dislike}},function(err) {
+            if (err) {
+                console.log('failure on set dislikeTotal');
+                return;
+            }
+        });
 
 };
 

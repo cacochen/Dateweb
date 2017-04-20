@@ -24,7 +24,7 @@ router
 router
     .route('/products/:productId/reviews')
     .get(ctrlReviews.reviewsGetAll)
-    .post(ctrlReviews.reviewsAddOne);
+    .post(ctrlUsers.authenticate, ctrlReviews.reviewsAddOne);
 
 router
     .route('/products/:productId/reviews/:reviewId')

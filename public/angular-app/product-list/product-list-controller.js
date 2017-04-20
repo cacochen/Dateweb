@@ -7,8 +7,14 @@ function productsController($route, productDataFactory) {
     var vm = this;
     vm.title = 'Movie Review App';
    productDataFactory.productList().then(function(response) {
-       console.log(response);
+       console.log(response.data);
+
        vm.products = response.data;
+       // fix the dislikeTotal number format
+       // vm.product.dislikeTotal = vm.product.dislikeTotal / vm.product.reviews.length;
+       // vm.product.dislikeTotal = parseFloat(vm.product.dislikeTotal).toFixed(2);
+       // console.log('I need !');
+       //vm.product.dislikeTotal = toDecimal2(vm.product.dislikeTotal);
     });
 
     vm.addProduct = function() {
@@ -33,3 +39,4 @@ function productsController($route, productDataFactory) {
         }
     };
 }
+

@@ -40,7 +40,10 @@ var productSchema = new mongoose.Schema({
         type : Number,
         default: 0
     },
-    reviews : [reviewSchema]
+    reviews : [reviewSchema],
+    dislikeAvg : {
+        type : Number
+    }
 });
 
 mongoose.model('Product', productSchema,'moviemarket');

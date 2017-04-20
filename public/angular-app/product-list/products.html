@@ -3,7 +3,7 @@
     <li ng-repeat="product in vm.products"><a ng-href="#/products/{{ product._id }}">{{ product.name }}</a></li>
 </ul>
 
-<h3>Yours are not in the list?</h3>
+<h4>Yours are not in the list?</h4>
 <p><i>Please help us</i></p>
 
 <form class="form-group" name="vm.productForm" ng-submit="vm.addProduct()">
@@ -31,4 +31,3 @@
 
     <button type="submit"  class="btn btn-success">Add a movie</button>
 </form>
-

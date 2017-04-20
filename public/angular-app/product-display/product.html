@@ -2,28 +2,32 @@
 
 <p>Director ： {{ vm.product.director }}</p>
 <p>Language ： {{ vm.product.language }}</p>
+<p>Rating :  {{ vm.product.dislikeTotal / vm.product.reviews.length }}</p>
 <p>Runtime ： {{ vm.product.runtime }}</p>
 <p>Box Office ： {{ vm.product.boxOffice }}</p>
-<h3>Reviews</h3>
+<h3>{{vm.product.reviews.length}} Reviews</h3>
 <ul>
-    <li ng-repeat="review in vm.product.reviews">{{review.name}} says: <strong>" {{review.review}} "</strong> on {{review.createOn}}</li>
+    <li ng-repeat="review in vm.product.reviews">{{review.name}}  rate: <strong>{{review.dislike}}</strong>,  says: <strong>" {{review.review}} "</strong>  on {{review.createOn}}</li>
 </ul>
 
 
-<form name="vm.reviewForm" ng-submit="vm.addReview()">
+<div ng-if="vm.isLoggedIn()">
+    <form name="vm.reviewForm" ng-submit="vm.addReview()">
 
-    Name : <input type="text" name="name" required ng-linlength="2" ng-model="vm.name">
-    <div ng-show="vm.reviewForm.name.$dirty && vm.reviewForm.name.$invalid && vm.isSubmitted">
-        <p>Name should be more than 2 characters long</p>
-    </div>
-    Dislike Rating: <input type="number" name="dislike" required ng-pattern="/^[0-2]$/"  ng-model="vm.dislike">
+        <!--Name : <input type="text" name="name" required ng-linlength="2" ng-model="vm.name">-->
+        <!--<div ng-show="vm.reviewForm.name.$dirty && vm.reviewForm.name.$invalid && vm.isSubmitted">-->
+            <!--<p>Name should be more than 2 characters long</p>-->
+        <!--</div>-->
+        Your Rating: <input type="number" name="dislike" required ng-pattern="/^[0-2]$/"  ng-model="vm.dislike">
 
-    <div ng-show="vm.reviewForm.dislike.$dirty && vm.reviewForm.dislike.$invalid && vm.isSubmitted">
-        <p>Rating must be between 0-2.</p>
+        <div ng-show="vm.reviewForm.dislike.$dirty && vm.reviewForm.dislike.$invalid && vm.isSubmitted">
+            <p>Rating must be between 0-2.</p>
+        </div>
+        <button type="button" class="btn btn-default" data-toggle="tooltip" title="From 0 to 2, 2 is lowest">How to Rate</button>
 
-    </div>
-    Review : <textarea name="review" required ng-model="vm.review"></textarea>
+        Your review:<textarea name="review" required ng-model="vm.review"></textarea>
 
-    <button type="submit" class="btn btn-success">Add a review</button>
+        <button type="submit" class="btn btn-success">Add a review</button>
 
-</form>
+    </form>
+</div>

@@ -11,6 +11,7 @@
     "url": "git+https://github.com/cacochen/Dateweb.git"
   },
   "dependencies": {
+    "angular-jwt": "^0.1.9",
     "body-parser": "^1.16.1",
     "express": "^4.14.1",
     "jsonwebtoken": "^7.3.0",

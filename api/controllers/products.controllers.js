@@ -12,7 +12,7 @@ module.exports.productsGetAll = function(req, res) {
 
     var offset = 0;
     var count = 10;
-    var maxCount = 10;
+    var maxCount = 20;
 
     if(req.query && req.query.offset) {
         offset = parseInt(req.query.offset, 10);
@@ -51,7 +51,7 @@ module.exports.productsGetAll = function(req, res) {
         });
 };
 
-module.exports.productsGetOne = function(req, res) {
+    module.exports.productsGetOne = function(req, res) {
 
     var _productId = req.params.productId;
     console.log('GET the product ID: ' + _productId);
@@ -62,7 +62,7 @@ module.exports.productsGetOne = function(req, res) {
             var response = {
                 status:200,
                 message:doc
-            }
+            };
             if(err) {
                 console.log('Error on finding object');
                 response.status = 500;
@@ -73,6 +73,7 @@ module.exports.productsGetOne = function(req, res) {
                     'message' : 'Object ID was not found'
                 };
             }
+
             res
                 .status(response.status)
                 .json(response.message)
